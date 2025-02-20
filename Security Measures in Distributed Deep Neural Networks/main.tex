@@ -93,59 +93,59 @@ Researchers are driven to explore distributed inference as a means of leveraging
 
 % #######################################################################################
 
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{taxonomy2.png}
-    \caption{Taxonomy of Adversarial Attacks on ML Models}
-    \label{fig:taxonomy}
-\end{figure*}
+% \begin{figure*}[t]
+%     \centering
+%     \includegraphics[width=\textwidth]{taxonomy2.png}
+%     \caption{Taxonomy of Adversarial Attacks on ML Models}
+%     \label{fig:taxonomy}
+% \end{figure*}
 
 \section{Attacks}
 % Attacks on Non-distributed and Distributed Deep Learning Models
 
 There are various types of attacks that can be performed on machine learning (ML) and deep learning (DL) models. These attacks can occur at different stages of the machine learning life-cycle, including the training and inference phases. The attacks can be broadly categorized into the following types (list all types / sub-types here):
 
-\subsection{Adversarial Attacks}
-Adversarial attacks on machine learning systems refer to deliberate attempts by malicious actors to compromise both the training and inference stages of a model, ultimately degrading its performance and reliability. During the training phase, attackers might launch poisoning attacks by introducing deceptive data samples or mislabeling inputs, which can skew the learning process. At the inference stage, adversaries often craft subtle, almost imperceptible perturbations to inputs—commonly known as adversarial examples—that lead the model to make incorrect predictions \cite{wu2021tolerating}. These vulnerabilities are particularly concerning in critical applications, such as autonomous driving or medical diagnostics, where even minor errors can have severe consequences. Adversarial attacks can be classified into three major categories: data poisoning attacks, evasion attacks and model extraction attacks.
+% \subsection{Adversarial Attacks}
+% Adversarial attacks on machine learning systems refer to deliberate attempts by malicious actors to compromise both the training and inference stages of a model, ultimately degrading its performance and reliability. During the training phase, attackers might launch poisoning attacks by introducing deceptive data samples or mislabeling inputs, which can skew the learning process. At the inference stage, adversaries often craft subtle, almost imperceptible perturbations to inputs—commonly known as adversarial examples—that lead the model to make incorrect predictions \cite{wu2021tolerating}. These vulnerabilities are particularly concerning in critical applications, such as autonomous driving or medical diagnostics, where even minor errors can have severe consequences. Adversarial attacks can be classified into three major categories: data poisoning attacks, evasion attacks and model extraction attacks.
 
-\subsubsection{Data Poisoning Attacks}
-Data poisoning attacks are a form of adversarial threat that target the training phase of machine learning models. In these attacks, adversaries intentionally inject, modify, or remove data in the training set to corrupt the learning process. This is especially critical in environments like Federated Learning, where multiple parties contribute data, often from untrusted sources \cite{sun2021data}.
+% \subsection{Data Poisoning Attacks}
+% Data poisoning attacks are a form of adversarial threat that target the training phase of machine learning models. In these attacks, adversaries intentionally inject, modify, or remove data in the training set to corrupt the learning process. This is especially critical in environments like Federated Learning, where multiple parties contribute data, often from untrusted sources \cite{sun2021data}.
 
-Data poisoning attacks can be broadly classified into several categories:
+% Data poisoning attacks can be broadly classified into several categories:
 
-\textbf{Performance Degradation Attacks:}
-The attacker introduces malicious examples into the training dataset with the aim of lowering the overall accuracy and robustness of the model. By contaminating the data, the adversary disrupts the model’s ability to learn accurate decision boundaries, resulting in widespread errors. For example, an attacker might inject anomalous network-layer protocol data into an intrusion detection system’s training set (labeled as normal) to degrade its detection capability \cite{pitropakis2019taxonomy}.
+% \subsubsection{Performance Degradation Attacks:}
+% The attacker introduces malicious examples into the training dataset with the aim of lowering the overall accuracy and robustness of the model. By contaminating the data, the adversary disrupts the model’s ability to learn accurate decision boundaries, resulting in widespread errors. For example, an attacker might inject anomalous network-layer protocol data into an intrusion detection system’s training set (labeled as normal) to degrade its detection capability \cite{pitropakis2019taxonomy}.
 
-\textbf{Targeted Poisoning Attacks:}
-Rather than affecting overall performance, targeted attacks are designed to cause specific misclassifications. Here, the adversary carefully selects or manipulates certain training samples (often through techniques like label-flipping) so that the model makes incorrect predictions on specific inputs during testing \cite{pauling2022tutorial}.
+% \subsubsection{Targeted Poisoning Attacks:}
+% Rather than affecting overall performance, targeted attacks are designed to cause specific misclassifications. Here, the adversary carefully selects or manipulates certain training samples (often through techniques like label-flipping) so that the model makes incorrect predictions on specific inputs during testing \cite{pauling2022tutorial}.
 
-\textbf{Backdoor (Trojan) Attacks:}
-In a backdoor attack, the adversary subtly implants a “trigger” or backdoor key into the training data. The model then learns to associate this trigger with a specific malicious behavior while performing normally on clean inputs. For instance, in an autonomous vehicle system, a backdoor could cause a stop sign to be misclassified as a speed limit sign when a specific mark is present on the sign \cite{chen2017targeted}.
+% \subsubsection{Backdoor (Trojan) Attacks:}
+% In a backdoor attack, the adversary subtly implants a “trigger” or backdoor key into the training data. The model then learns to associate this trigger with a specific malicious behavior while performing normally on clean inputs. For instance, in an autonomous vehicle system, a backdoor could cause a stop sign to be misclassified as a speed limit sign when a specific mark is present on the sign \cite{chen2017targeted}.
 
 
-\subsubsection{Model Evasion Attacks}
+\subsection{Model Evasion Attacks}
 Model evasion attacks occur during the inference (or testing) phase of a machine learning model. In these attacks, the adversary subtly perturbs the input data to force the model into making incorrect predictions, without altering the model’s underlying training process. Typically, these perturbations are so slight that they remain undetectable to human observers, yet they exploit the weaknesses of the model in its decision boundaries \cite{golla2023security, pauling2022tutorial}.
 
 For example, in a spam filtering system, an attacker might make minor modifications to spam emails so that they bypass the filter and are mistakenly classified as legitimate. This form of attack takes advantage of the fact that the deployed model, despite being well-trained, may still have vulnerabilities when exposed to inputs that lie near its decision boundaries.
 
 Evasion attacks can be broadly categorized based on the level of knowledge the adversary possesses about the target model:
 
-\textbf{White-box attacks:}
+\subsubsection{White-box attacks:}
 In a white-box scenario, the adversary has complete knowledge of the model, including its architecture, parameters and gradients \cite{ren2020adversarial}. This full transparency enables the attacker to compute precise perturbations (using methods such as the Fast Gradient Sign Method \cite{naqvi2023adversarial}, Projected Gradient Descent \cite{deng2020universal}, or the Carlini \& Wagner (C\&W) attack \cite{pujari2022approach}) that maximize the loss of the model on a given input. White-box attacks are typically the most effective because they directly exploit the internal workings of the model.
 
-\textbf{Gray-box attacks:}
+\subsubsection{Gray-box attacks:}
 Gray-box attacks occur when the attacker has partial information about the target model. For example, the adversary may know the model architecture but not its exact parameters, or may have limited access to the output probabilities. This middle ground scenario allows attackers to approximate gradient information or leverage transferability from surrogate models, balancing realism with attack efficiency \cite{ren2020adversarial}.
 
-\textbf{Black-box attacks:}
+\subsubsection{Black-box attacks:}
 In a black-box attack, the adversary has no access to the internal structure or parameters of the model. Instead, they can only query the model and observe its outputs (such as predicted labels or confidence scores) \cite{ren2020adversarial}. Techniques in this setting include training a surrogate model to mimic the target model or using query-based methods (such as HopSkipJump \cite{newaz2020adversarial} or Square Attack \cite{andriushchenko2020square}) to estimate gradients indirectly. Although black-box attacks are often less efficient than white-box attacks, they more closely mirror real-world conditions, where internal model details are hidden.
 
 
-\subsubsection{Model Extraction Attacks}
+\subsection{Model Extraction Attacks}
 Model extraction attacks are designed to replicate or 'steal' the functionality, architecture, and sometimes its internal parameters of a target machine learning model. In these attacks, adversaries systematically query the target model - often deployed as a cloud-based API - with carefully chosen inputs to collect corresponding outputs. They then use these input-output pairs to train a substitute (or surrogate) model that closely mimics the behavior of the original model, effectively duplicating its decision-making process without direct access to its internal workings \cite{golla2023security}.
 
 Model extraction attacks can be categorized based on the specific goals of the attacker \cite{gong2020model}:
 
-\textbf{Model Attribute Extraction:}
+\subsubsection{Model Attribute Extraction:}
 This type of attack focuses on obtaining detailed information about the target model's internals, such as:
 \begin{itemize}
   \item \textbf{Parameter Stealing:} Inferring the model's weights or other internal parameters by analyzing responses to carefully crafted queries.
@@ -154,7 +154,7 @@ This type of attack focuses on obtaining detailed information about the target m
   \item \textbf{Decision Boundary Inference:} Mapping the regions in the input space where the model’s predictions change, thereby approximating its decision boundaries.
 \end{itemize}
 
-\textbf{Model Functionality Extraction:}
+\subsubsection{Model Functionality Extraction:}
 Instead of recovering specific internal attributes, these attacks aim to duplicate the overall behavior of the target model. The attacker uses the gathered input-output pairs to train a substitute model that performs similarly to the target model on the same tasks. This type of extraction is often sufficient for many practical purposes, such as replicating service functionality or enabling further adversarial attacks.
 
 % Techniques for Model Extraction
@@ -170,28 +170,28 @@ Model extraction attacks are particularly concerning for cloud-based ML services
 
 % ############### Other classifications yet to be included in the taxonomy ###############
 
-\subsubsection{Model Inversion Attacks}
+\subsection{Model Inversion Attacks}
 
-Model inversion attacks focus on extracting sensitive information about the training data by exploiting the responses of a deployed model. Unlike model extraction—which aims to replicate the model’s functionality—model inversion attacks are designed to reveal private attributes or even reconstruct portions of the original training data, thereby compromising user privacy \cite{dibbo2023sok}.
+Model inversion attacks focus on extracting sensitive information about the training data by exploiting the responses of a deployed model. Unlike model extraction, which aims to replicate the model’s properties, model inversion attacks are designed to reveal private attributes or even reconstruct portions of the original training data, thereby compromising user privacy \cite{dibbo2023sok}.
 
 The primary goal of model inversion attacks is to infer confidential data that was used to train the model. For example, in a facial recognition system, an adversary might leverage confidence scores and output probabilities to reconstruct a recognizable image of an individual. Attackers achieve this by carefully selecting input queries and analyzing the model's responses. The amount of information leaked often depends on how over-fitted the model is and the granularity of the output it provides.
 
 Model inversion attacks can be organized into two primary categories:
 
-\textbf{Inference Attacks}
+\subsubsection{Inference Attacks}
 These attacks focus on deducing sensitive attributes or properties of the training data without necessarily reconstructing the full data instance. They include:
 
 \paragraph{Attribute Inference:}
 The adversary exploits output labels, confidence scores, and auxiliary information to infer exact values of sensitive attributes from individual data samples. For instance, given partial information about a customer, the attacker may accurately predict their credit score or medical condition.
 
-\paragraph{Approximate Attribute Inference:}
-In these attacks, the adversary does not recover the exact attribute value but instead obtains an approximation that is close enough to reveal private information.
+% \paragraph{Approximate Attribute Inference:}
+% In these attacks, the adversary does not recover the exact attribute value but instead obtains an approximation that is close enough to reveal private information.
 
 \paragraph{Property Inference:}
 Rather than targeting a specific attribute, property inference attacks aim to deduce general properties or trends in the training data. For example, an attacker might determine if a dataset predominantly consists of images of people wearing glasses, without reconstructing any specific individual’s image.
 \setcounter{paragraph}{0}
 
-\textbf{Reconstruction Attacks}
+\subsubsection{Reconstruction Attacks}
 These attacks attempt to rebuild data samples from the training set. 
 These attacks target distributed ML models by attempting to reconstruct private input data samples from the intermediate representation leaked by edge devices. The most notable reconstruction attack is image reconstruction attack. Attackers can query the model with chosen images and use the image intermediate representation pairs to train a reconstruction model \cite{benkraouda2021image}. Image reconstruction attacks are further subdivided into:
 
@@ -204,8 +204,7 @@ More targeted than TIR, these attacks focus on reconstructing a specific individ
 
 
 
-
-\subsubsection{Byzantine Attacks}
+\subsection{Byzantine Attacks}
 Byzantine attacks present a serious threat to distributed and federated learning systems. These attacks occur in distributed machine learning systems, where some workers are compromised and send malicious gradients to the parameter server, leading the training process to a wrong model \cite{wu2021tolerating}. In these attacks, one or more nodes behave in a malicious or faulty way. Instead of contributing valid updates to the model, these nodes send deceptive, arbitrarily altered, or even colluding updates that can undermine the entire training process. The goal is to manipulate the global model, steering it away from optimal performance and degrading its overall accuracy and reliability. Even a single malicious node can have a significant impact on the performance of the model. In some cases, the model’s accuracy can drop dramatically from near-perfect performance to complete failure due to the influence of these malicious updates. The global model may no longer generalize well or even fail to learn anything meaningful \cite{shi2022challenges}.
 
 One of the defining features of Byzantine attacks is that they are executed by nodes that do not follow the prescribed protocol. These nodes could either be inherently faulty or actively malicious. When they send updates, such as gradients or model weights, these updates differ drastically from those sent by the honest participants in the system. This deviation can significantly disrupt the training process and prevent the model from learning effectively \cite{konstantinidis2023detection}. Unlike other types of attacks that occur during inference, Byzantine attacks specifically target the training phase of machine learning. In a typical distributed learning setup, local updates from individual nodes are aggregated at a central server. If a malicious node sends corrupted updates, it can distort the aggregation process, thereby impacting the global model and making it unreliable \cite{wang2021elite}.
@@ -214,7 +213,7 @@ Attackers can manipulate the updates in several ways to disrupt the training. Th
 
 
 
-\subsubsection{Model-Reuse Attacks}
+\subsection{Model-Reuse Attacks}
 Model-reuse attacks occur when maliciously designed models are used to cause a host machine learning system to misbehave on specific inputs. These malicious models are crafted to misclassify targeted inputs while appearing harmless on non-targeted ones. Such attacks typically happen when developers reuse pre-trained models from untrusted sources. They exploit the common practice of building complex ML systems by integrating pre-trained models, which are usually tailored for tasks like feature extraction \cite{ji2018model}.
 
 
@@ -238,27 +237,99 @@ To defend against side-channel attacks on compressed communication, \cite{kannan
 
 % #######################################################################################
 
-\section{Applications of DDNNs}
+\section{Applications of Distributed Deployments}
 
-Distributing deep neural network (DNN) computations among various devices and network layers is rapidly transforming the deployment of intelligent systems, especially in edge computing environments. By processing data near its source, this approach not only mitigates computational and latency constraints but also strengthens data privacy and security, as sensitive information remains on local devices rather than being transmitted to centralized servers.
+Distributing machine learning computations among various devices and network layers is rapidly transforming the deployment of intelligent systems, especially in edge computing environments. Processing data near its source mitigates computational latency constraints and strengthens data privacy and security, as sensitive information remains on local devices rather than being transmitted to centralized servers. There are several applications of distributed inference of models. Some notable applications include autonomous vehicles, IoT and healthcare systems.
 
 % One prominent application is in intelligent mobile applications. Mobile devices, constrained by limited processing power, often struggle with resource-intensive DNN tasks such as image and speech recognition. While offloading these tasks to the cloud can introduce variable latency and potential security risks, distributed inference splits the computation between mobile devices and nearby edge servers. This setup enables real-time performance for applications like image recognition \cite{li2018edge} and speech recognition \cite{bhattacharya2016sparsification, zou2021cap}, while incorporating secure data handling and encrypted communication to safeguard user information. Such measures are critical for augmented reality and interactive applications, where immediate and trusted responses are essential \cite{liu2021eeai, zeng2020coedge}.
 
 % In the Internet of Things (IoT) domain, distributed inference is vital for processing large volumes of data generated by devices in scenarios like environmental monitoring, smart home automation, and industrial sensor analysis. By partitioning inference tasks across multiple devices, these systems not only overcome the limitations of single-device execution but also integrate security measures—such as encryption of intermediate outputs and secure multi-party computation—to prevent data tampering and unauthorized access \cite{xue2020edgeld, naveen2021low}.
 
-Autonomous vehicles leverage distributed inference to rapidly process vast amounts of sensor data, including video streams and radar signals, to support real-time decision-making. In this context, computationally intensive tasks like object detection and scene understanding are delegated to edge servers, while critical low-latency processes remain on-board. This collaborative processing framework not only enhances vehicular safety and responsiveness but also employs robust security protocols—such as data encryption and secure enclaves—to protect sensor data against cyber-attacks \cite{zhang2020towards, zhang2021communication, mohammed2020distributed}.
+\subsection{Applications of Distributed Inference in Autonomous Vehicles}
 
-Industrial applications, particularly in fault diagnosis, benefit from distributed inference by enabling swift analysis of complex data streams to detect equipment anomalies in real time. Here, workload partitioning across edge devices and servers accelerates fault detection and reduces computational overhead. Moreover, integrating security features like data integrity verification and secure communication channels helps protect operational data from espionage and cyber threats \cite{wang2020mbnn, wang2021fast}.
+Autonomous vehicles (AVs) leverage distributed inference to rapidly process vast amounts of sensor data, including video streams and radar signals, to support real-time decision-making. Computationally intensive tasks like object detection and scene understanding are delegated to edge servers, while critical low-latency processes remain on-board. \cite{mohammed2020distributed}. Distributed inference is critical in enabling AVs, from ground vehicles to aerial drones, to perform complex tasks with real-time responsiveness. In unmanned aerial vehicles (UAVs), distributed inference facilitates critical surveillance applications such as wildfire detection, infrastructure inspection, and threat identification in military zones. UAV swarms capture high-resolution images and process them collaboratively using CNNs, avoiding reliance on remote servers. For instance, the OULD framework \cite{jouhari2021distributed} dynamically partitions CNN layers across UAVs to classify captured images onboard, enabling rapid incident detection in environments with unstable connectivity. 
 
-Smart environments, including smart homes and factories, also harness distributed inference to perform tasks such as CNN-based face recognition and real-time video analytics. In these settings, diverse devices collaborate to accelerate processing while maintaining energy efficiency. Importantly, security protocols such as end-to-end encryption and secure authentication mechanisms are deployed to safeguard personal and operational data against breaches \cite{zeng2020coedge}.
+In autonomous cars, distributed inference involves partitioning models across end devices (onboard Electronic Control Units (ECUs)), edge nodes, and cloud servers, enabling AVs to perform complex tasks such as environment perception, path prediction, and real-time decision-making efficiently. For instance, environment perception tasks, including object detection and scene segmentation, often utilize convolutional neural networks (CNNs) to process inputs from cameras and LiDAR sensors \cite{mohammed2020distributed}. Similarly, recurrent neural networks (RNNs) are deployed for temporal tasks like Most Probable Path (MPP) prediction, which anticipates a vehicle’s trajectory based on historical GPS data and map context \cite{grigorescu2020cloud2edge}. These applications demand low-latency processing to ensure real-time responsiveness, necessitating distributed frameworks that balance computational load across multiple nodes.
+
+\subsubsection{Methods of Distributing Models in AVs}
+
+Distributed inference in AVs often involves partitioning DNNs and allocating computations across multiple computing nodes, such as edge devices and central servers. A prominent approach includes adaptive DNN partitioning and offloading, where tasks are split into finer-grained segments, smaller than a single layer, and processed collaboratively by devices in a network. This method balances computational loads between nodes while minimizing latency \cite{mohammed2020distributed}.
+
+The Distributed Inference Acceleration (DINA) framework \cite{mohammed2020distributed} partitions DNNs into fine-grained sub-tasks, allowing layers or even sub-layers to be processed locally on edge devices or offloaded to fog/cloud nodes. This partitioning is optimized using a load balancing algorithm that dynamically assigns tasks to nodes based on network conditions, computational capacity, and queuing delays. The Cloud2Edge Elastic AI Framework \cite{grigorescu2020cloud2edge} follows a similar approach, where training and inference tasks are elastically distributed between cloud servers and edge ECUs. Sensitive data is pre-processed locally on edge devices to ensure privacy and reduce cloud dependency, while non-sensitive tasks leverage cloud infranstructures. 
+
+Distributed inference in UAVs introduces unique methodologies related to to aerial mobility and resource constraints of UAV processors. The optimal UAV-based layer distribution (OULD) framework \cite{jouhari2021distributed} places CNN layers across UAVs to minimize latency. In order to avoid frequent re-allocation of inference tasks, the framework employs mobility prediction (OULD-MP), which anticipates UAV trajectories to preemptively adjust task allocations. UAVs prioritize air-to-air communication quality, to mitigate path loss and interference. Additionally, UAV frameworks avoid cloud dependency by preprocessing data locally and handle dynamic topologies by swarm coordination. For example, Raspberry Pi-equipped UAVs execute lightweight CNN segments, while deeper layers are offloaded to neighboring drones.
+
+
+\subsubsection{Motivations for Distributing Models in AVs}
+
+The primary motivations for distributed inference in self-driving cars include latency reduction, computational efficiency, and privacy preservation. Offloading compute-intensive tasks to nearby fog nodes or the cloud reduces latency for operations like object detection, which is critical for safety in AVs \cite{mohammed2020distributed}. Additionally, distributing models addresses the computational limitations of embedded ECUs, which lack the resources to execute large DNNs independently. Finally, privacy concerns are addressed through techniques like differential privacy (DP) and federated learning, which ensure sensitive data remains on local devices \cite{grigorescu2020cloud2edge}.
+
+Distributing inference in UAVs is driven by the need for real-time responsiveness and operational reliability in harsh environments. Unlike autonomous vehicles, which offload tasks to fog/cloud nodes \cite{mohammed2020distributed}, UAVs often operate in remote areas (e.g., forests, offshore sites) where cloud connectivity is unreliable. Local processing reduces latency by avoiding data transmission to distant servers which is critical for time-sensitive tasks like wildfire detection. Furthermore, UAV swarms optimize bandwidth usage by transmitting only intermediate CNN outputs rather than raw images  \cite{jouhari2021distributed}. 
+
+
+\subsubsection{Challenges for Distributing Models in AVs}
+
+Despite its benefits, distributed inference in AVs face significant challenges. In self-driving cars, the main challenge is deciding how to collaboratively partition and distribute computations under continuously changing network conditions, such as fluctuating bandwidth and intermittent connectivity, which complicate task offloading decisions \cite{mohammed2020distributed}. Communication overhead can also be a major challenge as continuously transmitting data between edge devices can cause network delays. In the context of UAVs, dynamic network conditions can be caused due to their mobility, altitude changes and environmental interference, requiring real-time adjustments to inference task allocation. Additionally, air-to-air communication bottlenecks arise from limited bandwidth and interference in dense swarms, which in turn increase transmission delays between nodes \cite{jouhari2021distributed}.
+
+
+
+\subsection{Applications of Distributed Inference in IoT devices}
+
+Distributed inference in IoT and edge computing enables ML models to be executed closer to the data source, a capability that is critical in environments such as smart cities and industrial settings. In smart cities, for instance, the deployment of distributed inference allows data from smart cameras and environmental sensors to be processed locally. This local processing reduces both latency and bandwidth usage, which is critical for real-time surveillance, object detection, facial recognition, and anomaly detection in security systems. This also results in improved privacy, as sensitive data need not be transmitted over long distances to centralized data centers \cite{grzesik2024combining}.
+
+In industrial IoT (IIoT) applications, distributed inference is deployed to support functions such as predictive maintenance, quality control, and anomaly detection. Here, the collaboration between resource-constrained sensors and more capable edge servers creates a system that can analyze massive data streams in near real time. For example, in a smart manufacturing environment, inference tasks may be divided between a compressed model running on an IoT device and a full, high-accuracy model hosted on an edge node, allowing the system to dynamically adjust data sampling rates and offload computational tasks as network conditions change \cite{grzesik2024combining}.
+
+\subsubsection{Methods of Distributing Models in IoT devices}
+
+Distributed inference in IoT and edge computing leverages a combination of hardware platforms, software frameworks, and algorithmic strategies to deploy ML models across edge devices, fog nodes, and cloud servers. The methods used for distributing machine learning models across the edge involve several key strategies. One common approach involves model partitioning, where DNNs are split into segments that are distributed between edge devices and central nodes.  \cite{filho2022systematic, grzesik2024combining}. This partitioning enables lower-complexity models to run on constrained devices while offloading more computationally intensive tasks to nearby edge servers.
+
+Frameworks like TensorFlow Lite and PyTorch Mobile optimize models for edge deployment through techniques such as model pruning and quantization to further reduce the computational overhead \cite{zhang2020deep}. Federated learning is another key method, where models are trained collaboratively across distributed edge nodes without sharing raw data, therefore preserving privacy of individual nodes. Before these models are deployed, they can be trained using federating learning methods, where each node participates in the training process, or they can be trained centrally and then deployed to the edge where they continue to operate independently. The latter case is commonly seen in applications where the training phase is handled in a controlled environment before the model is offloaded to IoT units \cite{filho2022systematic}.
+
+% In decentralized multi-agent systems, edge devices collaborate to share model updates based on data gathered locally. For example, in smart cities, distributed cameras might offload computation to neighboring nodes to balance workloads, while IIoT systems use hierarchical causal graphs to predict equipment failures \cite{sedlak2024active}.
+
+
+\subsubsection{Motivations of Distributing Models in IoT devices}
+
+The motivations behind distributing these models stem primarily from the need to minimize latency, reduce bandwidth and preserve user privacy. As edge devices become more powerful because of advancements like integrated AI chipsets and hardware accelerators, the feasibility of running sophisticated models on the edge has increased \cite{grzesik2024combining}. Furthermore, the decentralized architecture inherently enhances system scalability and resilience by reducing the load on centralized servers and allowing each edge node to operate independently.
+
+The primary motivation for distributing ML models lies in addressing the limitations of centralized cloud processing. Reducing latency is critical for time-sensitive applications like real-time surveillance systems, where distributed inference ensures immediate decision-making abilities \cite{grzesik2024combining}. For example, smart cameras performing facial recognition or anomaly detection rely on local processing to avoid delays caused by sending large volumes of data to centralized clouds \cite{filho2022systematic}. Bandwidth conservation is another driver, particularly in IIoT environments where high-frequency sensor data would overwhelm network resources if transmitted in full to the cloud \cite{grzesik2024combining}. Distributed systems also enhance data privacy, as sensitive information can be processed locally \cite{filho2022systematic}. Additionally, edge deployment ensures offline functionality in remote or unreliable connectivity scenarios, such as environmental monitoring in secluded areas \cite{grzesik2024combining}.
+% Distributed inference also enhances scalability and resilience; for example, elastic edge systems autonomously scale resources to maintain Quality of Service (QoS) during peak demand \cite{sedlak2024active}.
+
+
+\subsubsection{Challenges of Distributing Models in Industrial Applications}
+
+Distributing ML models introduces significant challenges. Resource constraints on edge devices, such as limited computational power, memory, and energy, necessitate highly optimized models, often at the cost of reduced accuracy \cite{filho2022systematic, grzesik2024combining}. For instance, compressing models via quantization or pruning may degrade the model's performance. Heterogeneity across edge devices, such as varying hardware capabilities, operating systems, and communication protocols, complicates the distribution as models trained for one edge node may not generalize to others. Furthermore, all the nodes may not be able to handle the same amount of computational tasks. \cite{grzesik2024combining}. As distributed systems expand, security risks persist requiring robust encryption and authentication mechanisms to protect model updates and data \cite{filho2022systematic}. Communication inefficiencies further challenge distributed inference because synchronization delays between nodes or model partitioning can be a bottleneck to real-time applications \cite{filho2022systematic}. Finally, scalability remains a concern, as managing thousands of edge nodes in smart cities or IIoT environments demands adaptive orchestration frameworks to balance workloads dynamically \cite{grzesik2024combining}.
 
 % The power sector, especially power distribution networks (PDNs), is exploring distributed inference to improve system reliability. As the volume of data from edge devices in complex PDNs increases, real-time data fusion and analysis become essential for stabilizing energy flow and ensuring control reliability. Advanced security measures, including encrypted data transmission, secure routing, and intrusion detection, are integral to these systems, protecting critical infrastructure from cyber-attacks \cite{luo2021cloud}.
 
-Healthcare applications gain significant advantages from distributed inference by enabling the real-time analysis of medical images and patient data for rapid diagnosis. By balancing computational loads between edge devices and cloud servers, these systems reduce diagnostic delays while adhering to strict privacy regulations (e.g., HIPAA). Techniques such as differential privacy, confidential computing, and encrypted inference ensure that sensitive patient information remains secure throughout the process.
+% Beyond these examples, distributed inference is instrumental in smart cities—supporting video analytics for traffic management, public safety, and environmental monitoring—and in retail, where it powers personalized recommendations and customer behavior analysis. In both cases, the decentralized architecture not only enhances responsiveness and scalability but also embeds robust security measures to protect critical data and ensure regulatory compliance.
 
-Beyond these examples, distributed inference is instrumental in smart cities—supporting video analytics for traffic management, public safety, and environmental monitoring—and in retail, where it powers personalized recommendations and customer behavior analysis. In both cases, the decentralized architecture not only enhances responsiveness and scalability but also embeds robust security measures to protect critical data and ensure regulatory compliance.
+\subsection{Applications of Distributed Inference in Healthcare Systems}
 
-Overall, as distributed inference continues to evolve, its role in delivering real-time, resource-efficient, and privacy-preserving intelligent systems is becoming indispensable. Its broad applicability—from autonomous systems and IoT to healthcare, industrial automation, smart cities, and retail—is further enhanced by integrated security protocols that protect data at every stage of the inference process.
+Distributed inference has transformative applications in healthcare. By leveraging local, edge, and cloud-based resources, distributed inference systems can process sensitive health data closer to its source, reducing latency and enhancing privacy. In medical imaging, for instance, distributed architectures accelerate the analysis of MRI and CT scans, enabling faster diagnostics and treatment planning. Wearable devices, such as smartwatches, utilize on-device inference to monitor vital signs like ECG and oxygen levels in real time. In drug discovery, distributed computing frameworks parallelize complex simulations, such as protein folding, to expedite research and development.
+
+\subsubsection{Methods of Distributing Models in Healthcare Systems}
+
+Distributed inference in healthcare employs various strategies to deploy machine learning models across multiple computing tiers. One common method involves partitioning models across local, edge, and cloud tiers. In medical imaging, such as MRI or CT scan analysis, large datasets are processed by splitting workloads across multiple servers or cloud nodes using data parallelism, where subsets of images are analyzed concurrently. In this setup, lightweight preprocessing occurs on local nodes near data sources (e.g., MRI/CT scanners), while computationally intensive tasks like image reconstruction are offloaded to edge servers or cloud data centers \cite{akdemir2025technical}. 
+
+For wearable devices, on-device inference enables real-time monitoring of metrics such as ECG or blood oxygen levels by deploying lightweight models directly on the hardware, which minimizes reliance on external servers. In several cases, on-device inference is prioritized to enable real-time health monitoring, such as detecting arrhythmias via ECG analysis directly on smartwatches \cite{al2022machine}. 
+
+In drug discovery, distributed systems accelerate tasks like molecular simulations by utilizing high-performance computing clusters. Distributed computing clusters parallelize inference tasks to accelerate research, such as predicting protein folding structures, though this application often relies on high-performance computing frameworks beyond typical healthcare infrastructures. \cite{tuli2020healthfog}
+
+
+\subsubsection{Motivations of Distributing Models in Healthcare Systems}
+
+The primary motivation for distributing ML models in healthcare is to address critical constraints in latency, privacy, and scalability. In medical imaging systems, sensitive medical data should be processed locally or at the edge to minimize communication delays for time-sensitive diagnostics like real-time patient monitoring. Additionally, resource-constrained wearable IoT devices necessitates lightweight, localized models to enable low-latency processing \cite{al2022machine}. Privacy regulations also drive the adoption of edge and federated learning approaches, as sensitive data remains localized rather than being transmitted to centralized servers.
+
+Distributed inference also addresses computational demands in drug discovery, where simulating complex molecular interactions requires scalable resources for parallel processing of massive datasets. Additionally, hybrid cloud-edge architectures balance workload distribution, ensuring resource-intensive tasks are offloaded to the cloud while time-sensitive analyses occur at the edge, optimizing both speed and cost.
+
+\subsubsection{Challenges of Distributing Models in Healthcare Systems}
+
+Despite its benefits, distributed inference in healthcare faces significant technical and regulatory challenges. Data heterogeneity—arising from varied sensor types, formats, and institutional protocols—complicates model interoperability \cite{akdemir2025technical}. For example, wearable devices from different manufacturers may produce inconsistent ECG signals. Regulatory compliance, imposes strict requirements on data privacy, as distributed systems must navigate varying data protection laws across regions. \cite{akdemir2025technical, tuli2020healthfog}. Resource constraints, including limited computational power on edge nodes and wearables, restrict model complexity, often necessitating trade-offs between accuracy and efficiency. Network reliability further challenges real-time applications, as unstable connections between tiers can delay critical diagnostics. Finally, synchronizing model updates across distributed nodes remains an issue, particularly in environments where data distributions may vary widely \cite{akdemir2025technical, al2022machine}.
+
+
+
+% Overall, as distributed inference continues to evolve, its role in delivering real-time, resource-efficient, and privacy-preserving intelligent systems is becoming indispensable. Its broad applicability—from autonomous systems and IoT to healthcare, industrial automation, smart cities, and retail—is further enhanced by integrated security protocols that protect data at every stage of the inference process.
 
 % #######################################################################################
 
